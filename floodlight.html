@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>LED Flood Light Gallery</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+            background-color: #f3f5f7;
+            margin: 0;
+        }
+        
+        h1 {
+            color: #0c4a6e;
+            text-align: center;
+        }
+        
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            width: 300px;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card img {
+            width: 80%;
+            /* Smaller width */
+            height: 120px;
+            /* Reduced height */
+            object-fit: contain;
+            /* Ensures image fits without being cropped */
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .card p {
+            font-size: 0.95rem;
+            color: #374151;
+            margin-top: 0.75rem;
+        }
+        /* Modal Carousel */
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            flex-direction: column;
+        }
+        
+        .modal img {
+            width: 600px;
+            height: 500px;
+            object-fit: contain;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        
+        .modal .caption {
+            color: white;
+            margin-top: 10px;
+        }
+        
+        .nav-btn,
+        .close-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            font-size: 2rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            color: #0c4a6e;
+        }
+        
+        .nav-btn:hover,
+        .close-btn:hover {
+            background: white;
+        }
+        
+        .nav-btn.prev {
+            left: 40px;
+        }
+        
+        .nav-btn.next {
+            right: 40px;
+        }
+        
+        .close-btn {
+            top: 20px;
+            right: 20px;
+            transform: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>LED Flood Light Gallery</h1>
+
+    <div class="gallery-grid" id="gallery">
+        <!-- Image cards -->
+    </div>
+
+    <!-- Modal Carousel -->
+    <div class="modal" id="carouselModal">
+        <button class="close-btn" onclick="closeModal()">✕</button>
+        <button class="nav-btn prev" onclick="navigate(-1)">‹</button>
+        <img id="modalImg" src="" alt="" />
+        <div class="caption" id="modalCaption"></div>
+        <button class="nav-btn next" onclick="navigate(1)">›</button>
+    </div>
+
+    <script>
+        const images = [{
+            src: 'images/flimg1.jpg',
+            caption: '200W LED Flood Light'
+        }, {
+            src: 'images/flimg2.jpg',
+            caption: '50W-400W LED Heavy duty backchoke Flood Light'
+        }, {
+            src: 'images/flimg3.jpg',
+            caption: '200W LED Flood Light'
+        }, {
+            src: 'images/flimg4.jpg',
+            caption: '200W LED Flood Light'
+        }, {
+            src: 'images/flimg5.jpg',
+            caption: '50W LED Flood Light'
+        }];
+
+        const gallery = document.getElementById('gallery');
+        const modal = document.getElementById('carouselModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        let currentIndex = 0;
+
+        // Generate cards
+        images.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+        <img src="${item.src}" alt="${item.caption}" />
+        <p>${item.caption}</p>
+      `;
+            card.addEventListener('click', () => openModal(index));
+            gallery.appendChild(card);
+        });
+
+        function openModal(index) {
+            currentIndex = index;
+            modalImg.src = images[index].src;
+            modalCaption.textContent = images[index].caption;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function navigate(direction) {
+            currentIndex = (currentIndex + direction + images.length) % images.length;
+            openModal(currentIndex);
+        }
+
+        // Optional: Escape key closes modal
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowRight') navigate(1);
+            if (e.key === 'ArrowLeft') navigate(-1);
+        });
+    </script>
+</body>
+
+</html>
