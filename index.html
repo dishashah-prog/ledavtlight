@@ -21,394 +21,10 @@
     <!-- AOS Scroll Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-        
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #fff;
-            color: #fff;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .logo img {
-            height: 40px;
-            width: 80px;
-            /* ensure it's a square */
-            object-fit: cover;
-            border-radius: 50%;
-            /* makes it circular */
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        nav ul li a {
-            color: rgb(3, 3, 3);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .menu-icon {
-            color: rgb(3, 3, 3);
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            background-color: #111827;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-        }
-        
-        .mobile-menu a {
-            padding: 1rem;
-            border-top: 1px solid #333;
-            text-decoration: none;
-            color: white;
-        }
-        
-        .whatsapp-btn {
-            background-color: #25D366;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            .menu-icon {
-                display: block;
-            }
-            .mobile-menu.show {
-                display: flex;
-            }
-            .whatsapp-btn {
-                display: none;
-            }
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-        
-        .logo img {
-            height: 80px;
-            width: 80px;
-            /* ensure it's a square */
-            object-fit: cover;
-            border-radius: 50%;
-            /* makes it circular */
-        }
-        
-        section {
-            padding: 100px 20px;
-            margin-top: 60px;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 120px;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 2rem;
-            background: #e0f2fe;
-            color: #0c4a6e;
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 2rem;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .tab-btn.active {
-            color: #2563eb;
-            /* Blue text color for active tab */
-            border-bottom: 2px solid #2563eb;
-            /* Optional underline */
-        }
-        
-        .tab-btn {
-            transition: all 0.3s ease;
-        }
-        
-        .tab-btn:hover {
-            color: #378d05;
-            /* Slightly darker blue on hover */
-        }
-        
-        .intro-section {
-            background: #457bb1;
-            border-left: 6px solid #4ade80;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-        }
-        
-        .intro-section h2 {
-            color: #080808;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .intro-section p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #eaedf1;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem;
-        }
-        
-        .card {
-            background: rgb(220, 225, 241);
-            padding: 1rem;
-            text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-4px);
-        }
-        
-        .card img {
-            width: 100%;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-        
-        .card img:hover {
-            transform: scale(1.05);
-        }
-        
-        .features-applications-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            background: #ebe2e2;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-        }
-        
-        .features-box,
-        .applications-box {
-            flex: 1 1 300px;
-            border-left: 6px solid #60a5fa;
-            padding-left: 1rem;
-        }
-        
-        .features-box h2,
-        .applications-box h2 {
-            color: #0c4a6e;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .features-box ul,
-        .applications-box ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .features-box li,
-        .applications-box li {
-            padding: 0.5rem 0;
-            font-size: 1.1rem;
-            color: #374151;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .features-box li::before,
-        .applications-box li::before {
-            content: "✔";
-            position: absolute;
-            left: 0;
-            color: #4ade80;
-            font-weight: bold;
-        }
-        
-        .product-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            margin-bottom: 1.5rem;
-        }
-        
-        .simple-product {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: background 0.2s ease;
-        }
-        
-        .simple-product:hover {
-            background-color: #f3f4f6;
-            /* subtle hover effect */
-        }
-        
-        .simple-product img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #4ade80;
-            /* optional green ring */
-        }
-        
-        .product-info h3 {
-            margin: 0;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .product-info p {
-            margin: 0.25rem 0 0;
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-        
-        .blue-arrow {
-            color: #007bff;
-        }
-        
-        .image-overlay-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            /* Adjust height as needed */
-            overflow: hidden;
-        }
-        
-        .overlay-background {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
-            /* Makes image semi-transparent */
-        }
-        
-        .overlay-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: rgb(2, 2, 2);
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .contact-details {
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .certifications {
-            margin-top: 2rem;
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-        
-        .certifications h3 {
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-        
-        .certifications ul {
-            margin: 0 0 1rem 1.5rem;
-        }
-        
-        .cert-img {
-            max-width: 150px;
-            margin: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        
-        footer {
-            background: #1f2937;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
-        /* WhatsApp link in mobile menu */
-        
-        .mobile-menu a.mobile-whatsapp {
-            background-color: #25D366;
-            font-weight: bold;
-            color: white;
-            text-align: center;
-            margin: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-        
-        #products {
-            padding-top: 120px;
-            scroll-margin-top: 120px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -423,7 +39,10 @@
                 <li><a href="#home" class="tab-btn" data-tab="home">Home</a></li>
                 <li><a href="#products" class="tab-btn" data-tab="products">Products</a></li>
                 <li><a href="#contact" class="tab-btn" data-tab="contact">Contact</a></li>
-                <li><a class="whatsapp-btn" href="https://wa.me/919146193300" target="_blank">WhatsApp Us</a></li>
+                <li>
+                    <a class="whatsapp-btn" href="https://wa.me/919146193300" target="_blank"> <i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+
+                </li>
 
             </ul>
             <div class="menu-icon" onclick="toggleMenu()">☰</div>
@@ -431,7 +50,7 @@
                 <a href="#home" class="tab-btn" data-tab="home" onclick="toggleMenu()">Home</a>
                 <a href="#products" class="tab-btn" data-tab="products" onclick="toggleMenu()">Products</a>
                 <a href="#contact" class="tab-btn" data-tab="contact" onclick="toggleMenu()">Contact</a>
-                <a href="https://wa.me/911234567890" target="_blank" onclick="toggleMenu()">WhatsApp Us</a>
+                <a href="https://wa.me/919146193300" target="_blank" onclick="toggleMenu()"> <i class="fab fa-whatsapp"></i> WhatsApp Us</a>
 
             </div>
         </nav>
@@ -530,7 +149,7 @@
                 <img src="images/highbay.jpg" alt="Flood Light">
                 <div class="product-info">
                     <h3>LED Highbay Light <i class="fas fa-arrow-right blue-arrow"></i></h3>
-                    <p>Durable and weather-resistant LED flood lights for gardens, parking lots, and industrial areas.</p>
+                    <p>Illuminate large indoor spaces with high ceilings, such as warehouses, factories, and gymnasiums.</p>
                 </div>
             </div>
         </a>
@@ -542,7 +161,7 @@
                 <img src="images/street.jpg" alt="Flood Light">
                 <div class="product-info">
                     <h3>LED Street Light <i class="fas fa-arrow-right blue-arrow"></i></h3>
-                    <p>Durable and weather-resistant LED flood lights for gardens, parking lots, and industrial areas.</p>
+                    <p>Along roads and pathways to provide illumination, enhancing visibility and safety, particularly at night or in low-light conditions</p>
                 </div>
             </div>
         </a>
@@ -551,7 +170,7 @@
                 <img src="images/stadium.jpg" alt="Flood Light">
                 <div class="product-info">
                     <h3>LED Stadium Light <i class="fas fa-arrow-right blue-arrow"></i></h3>
-                    <p>Durable and weather-resistant LED flood lights for gardens, parking lots, and industrial areas.</p>
+                    <p>High-intensity lighting fixtures designed to provide illumination across large areas such as sports stadiums, outdoor arenas</p>
                 </div>
             </div>
         </a>
