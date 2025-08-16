@@ -1,15 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    background-color: #0c4a6e;
-    padding: 1rem;
-    color: white;
+    padding: 1rem 2rem;
+    background-color: rgb(148, 181, 189);
+    color: #fff;
     position: fixed;
-    width: 100%;
     top: 0;
-    z-index: 999;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 40px;
+    width: 80px;
+    /* ensure it's a square */
+    object-fit: cover;
+    border-radius: 50%;
+    /* makes it circular */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav ul li a {
+    color: rgb(3, 3, 3);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu-icon {
+    color: rgb(3, 3, 3);
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #f0f1f5;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+.mobile-menu a {
+    padding: 1rem;
+    border-top: 1px solid rgb(8, 8, 8);
+    text-decoration: none;
+    color: rgb(8, 8, 8);
+}
+
+.whatsapp-btn {
+    background-color: #25D366;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+    .menu-icon {
+        display: block;
+    }
+    .mobile-menu.show {
+        display: flex;
+    }
+    .whatsapp-btn {
+        display: none;
+    }
 }
 
 .logo {
@@ -21,85 +107,28 @@ header {
 }
 
 .logo img {
-    height: 40px;
-    width: 40px;
+    height: 80px;
+    width: 80px;
     /* ensure it's a square */
     object-fit: cover;
     border-radius: 50%;
     /* makes it circular */
 }
 
-.tab-group {
-    display: flex;
-    gap: 0.8rem;
+section {
+    padding: 100px 20px;
+    margin-top: 60px;
 }
 
-.tab-btn,
-.quote-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .tab-group {
-        display: none;
-        flex-direction: column;
-        background-color: #0c4a6e;
-        position: absolute;
-        top: 70px;
-        right: 1rem;
-        width: 200px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .tab-group.show {
-        display: flex;
-    }
-    .menu-toggle {
-        display: block;
-        color: white;
-    }
-}
-
-nav .tab-group {
-    margin-left: 800px;
-    display: flex;
-    gap: 12px;
-}
-
-nav button {
-    background: none;
-    border: none;
-    color: #ddd;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    transition: color 0.2s ease, background 0.2s ease;
-    border-radius: 8px;
-}
-
-nav button:hover,
-nav button.active {
-    background-color: #374151;
-    color: #4ade80;
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
 }
 
 .hero {
     text-align: center;
     padding: 2rem;
-    background: #e0f2fe;
+    background: #eff0f1;
     color: #0c4a6e;
 }
 
@@ -110,6 +139,43 @@ nav button.active {
 
 .tab-content.active {
     display: block;
+}
+
+.tab-btn.active {
+    color: #2563eb;
+    /* Blue text color for active tab */
+    border-bottom: 2px solid #2563eb;
+    /* Optional underline */
+}
+
+.tab-btn {
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: #192413;
+    /* Slightly darker blue on hover */
+}
+
+.intro-section {
+    background: #457bb1;
+    border-left: 6px solid #4ade80;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.intro-section h2 {
+    color: #080808;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.intro-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #eaedf1;
 }
 
 .grid {
@@ -140,112 +206,6 @@ nav button.active {
 
 .card img:hover {
     transform: scale(1.05);
-}
-
-.quote-btn {
-    background-color: #4ade80;
-    color: #fff;
-    border: none;
-    padding: 0.4rem 1.2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-right: 2rem;
-    transition: background-color 0.3s ease;
-}
-
-.quote-btn:hover {
-    background-color: #22c55e;
-}
-
-
-/* Modal Background */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-}
-
-
-/* Modal Content */
-
-.modal-content {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-}
-
-
-/* Close Button */
-
-.modal .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-
-/* Form Styles */
-
-.modal form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.modal input,
-.modal textarea {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-.modal button[type="submit"] {
-    background-color: #4ade80;
-    color: white;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.modal button[type="submit"]:hover {
-    background-color: #22c55e;
-}
-
-.intro-section {
-    background: #457bb1;
-    border-left: 6px solid #4ade80;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.intro-section h2 {
-    color: #080808;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.intro-section p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #eaedf1;
 }
 
 .features-applications-section {
@@ -296,83 +256,6 @@ nav button.active {
     left: 0;
     color: #4ade80;
     font-weight: bold;
-}
-
-.title-link {
-    text-decoration: none;
-    color: inherit;
-    display: inline-block;
-    transition: color 0.3s ease;
-}
-
-.title-link:hover {
-    color: #007bff;
-    /* Change to your brand color */
-}
-
-.title-link i {
-    margin-left: 8px;
-    transition: transform 0.3s ease;
-}
-
-.title-link:hover i {
-    transform: translateX(4px);
-}
-
-.carded {
-    background: rgb(162, 188, 245);
-    height: 280px;
-    width: 300px;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.carded img {
-    width: 100%;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-
-.circle-card {
-    width: 200px;
-    background-color: #f3f4f6;
-    /* soft gray */
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    margin: 1rem auto;
-    transition: transform 0.3s ease;
-}
-
-.circle-card:hover {
-    transform: translateY(-5px);
-}
-
-.circle-card img {
-    height: 80px;
-    width: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    /* makes it a circle */
-    border: 3px solid #4ade80;
-    /* optional green ring */
-    margin-bottom: 1rem;
-}
-
-.circle-card h3 {
-    font-size: 1rem;
-    margin: 0.5rem 0;
-    color: #1f2937;
-}
-
-.circle-card p {
-    font-size: 0.85rem;
-    color: #4b5563;
-    line-height: 1.4;
 }
 
 .product-link {
@@ -483,4 +366,21 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem;
+}
+
+
+/* WhatsApp link in mobile menu */
+
+.mobile-menu a.mobile-whatsapp {
+    background-color: #25D366;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+#products {
+    padding-top: 120px;
+    scroll-margin-top: 120px;
 }
