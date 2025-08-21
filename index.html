@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style3.css" />
 </head>
 
 <body>
@@ -73,32 +73,32 @@
 
         <div class="grid">
             <div class="card" data-aos="fade-up">
-                <a href="images/floodled.jpg" data-lightbox="products" data-title="LED Bulbs">
-                    <img src="images/floodled.jpg" height="180px" alt="Flood Light">
-                </a>
+
+                <img src="images/floodled.jpg" height="180px" alt="Flood Light">
+
                 <h3>LED Flood Light</h3>
                 <p>Good choices for outdoor security lighting and in your front door, garage or even a shed in a dark corner of the yard</p>
             </div>
 
             <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <a href="images/highbay.jpg" data-lightbox="products" data-title="Panel Lights">
-                    <img src="images/highbay.jpg" alt="Highbay Light">
-                </a>
+
+                <img src="images/highbay.jpg" alt="Highbay Light">
+
                 <h3>LED Highbay Light</h3>
                 <p>Illuminate large indoor spaces with high ceilings, such as warehouses, factories, and gymnasiums</p>
             </div>
 
             <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <a href="images/street.jpg" data-lightbox="products" data-title="Street Lights">
-                    <img src="images/street.jpg" alt="Street Lights">
-                </a>
+
+                <img src="images/street.jpg" alt="Street Lights">
+
                 <h3>LED Street Lights</h3>
                 <p>Along roads and pathways to provide illumination, enhancing visibility and safety, particularly at night or in low-light conditions</p>
             </div>
             <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <a href="images/stadium.jpg" data-lightbox="products" data-title="Street Lights">
-                    <img src="images/stadium.jpg" height="180px" alt="Stadium Light">
-                </a>
+
+                <img src="images/stadium.jpg" height="180px" alt="Stadium Light">
+
                 <h3>LED Stadium Lights</h3>
                 <p>High-intensity lighting fixtures designed to provide illumination across large areas such as sports stadiums, outdoor arenas</p>
             </div>
@@ -131,7 +131,7 @@
             </div>
         </div>
     </section>
-    <section id="products" class="tab-content">
+    <!-- <section id="products" class="tab-content">
         <a href="floodlight.html" class="product-link">
             <div class="simple-product">
                 <img src="images/floodled.jpg" alt="Flood Light">
@@ -173,8 +173,31 @@
                     <p>High-intensity lighting fixtures designed to provide illumination across large areas such as sports stadiums, outdoor arenas</p>
                 </div>
             </div>
-        </a>
-    </section>
+        </a> 
+    </section>-->
+    <div id="products" class="tab-content">
+
+        <!-- Mobile toggle -->
+        <button class="sidebar-toggle" id="sidebarToggle">☰ Products</button>
+
+        <div class="product-container">
+
+            <!-- Sidebar -->
+            <div class="product-sidebar" id="productSidebar">
+                <ul>
+                    <li><a href="#" data-file="floodlight.html" class="active">LED Flood Light</a></li>
+                    <li><a href="#" data-file="highbay.html">LED Highbay Light</a></li>
+                    <li><a href="#" data-file="street.html">LED Street Light</a></li>
+                    <li><a href="#" data-file="stadium.html">LED Stadium light</a></li>
+                </ul>
+            </div>
+
+            <!-- Right side -->
+            <div class="product-content">
+                <iframe id="product-frame" src="floodlight.html"></iframe>
+            </div>
+        </div>
+    </div>
 
     <section id="contact" class="tab-content">
         <div class="image-overlay-container">
@@ -259,8 +282,119 @@
             const hash = window.location.hash.replace('#', '') || 'home';
             switchTab(hash);
         });
-    </script>
+        // Make logo clickable -> go to Home
+        document.querySelector('.logo img').addEventListener('click', (e) => {
+            e.preventDefault();
 
+            const tabId = 'home';
+            history.pushState(null, '', `#${tabId}`);
+            switchTab(tabId);
+
+            // Smooth scroll with header offset
+            const targetSection = document.getElementById(tabId);
+            const header = document.querySelector('header');
+            const headerHeight = header.offsetHeight;
+
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
+    <script>
+        function loadProduct(file) {
+            fetch(file)
+                .then(response => {
+                    if (!response.ok) throw new Error("File not found: " + file);
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('product-content').innerHTML = data;
+                })
+                .catch(err => {
+                    document.getElementById('product-content').innerHTML = "<p style='color:red;'>Error loading " + file + "</p>";
+                    console.error(err);
+                });
+        }
+
+        // Sidebar click handling
+        document.querySelectorAll('.product-sidebar a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Remove active class from others
+                document.querySelectorAll('.product-sidebar a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+
+                const file = this.getAttribute('data-file');
+                loadProduct(file);
+            });
+        });
+
+        // Auto-load Floodlight when Products tab is opened
+        document.querySelector('[data-tab="products"]').addEventListener('click', function() {
+            loadProduct("floodlight.html");
+
+            // reset sidebar highlight to Floodlight
+            document.querySelectorAll('.product-sidebar a').forEach(a => a.classList.remove('active'));
+            document.querySelector('.product-sidebar a[data-file="floodlight.html"]').classList.add('active');
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const links = document.querySelectorAll(".product-sidebar a");
+            const frame = document.getElementById("product-frame");
+            const sidebar = document.getElementById("productSidebar");
+            const toggleBtn = document.getElementById("sidebarToggle");
+
+            // Sidebar toggle on mobile
+            toggleBtn.addEventListener("click", () => {
+                sidebar.classList.add("show");
+                toggleBtn.style.display = "none"; // hide ☰ when sidebar open
+            });
+
+            // Add a close button inside sidebar
+            const closeBtn = document.createElement("button");
+            closeBtn.innerHTML = "&times;";
+            closeBtn.className = "sidebar-close";
+            sidebar.prepend(closeBtn);
+
+            closeBtn.addEventListener("click", () => {
+                sidebar.classList.remove("show");
+                toggleBtn.style.display = "inline-block"; // show ☰ again
+            });
+
+            // Load file into iframe
+            links.forEach(link => {
+                link.addEventListener("click", function(e) {
+                    e.preventDefault();
+
+                    // highlight active
+                    links.forEach(l => l.classList.remove("active"));
+                    this.classList.add("active");
+
+                    // load page
+                    frame.src = this.getAttribute("data-file");
+
+                    // auto-close sidebar on mobile
+                    sidebar.classList.remove("show");
+                    toggleBtn.style.display = "inline-block";
+                });
+            });
+
+            // Auto-resize iframe
+            frame.addEventListener("load", function() {
+                try {
+                    const iframeDoc = frame.contentDocument || frame.contentWindow.document;
+                    frame.style.height = iframeDoc.body.scrollHeight + "px";
+                } catch (e) {
+                    console.error("Cross-origin issue: make sure the files are from same domain");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
