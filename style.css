@@ -14,7 +14,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: rgb(148, 181, 189);
+    background-color: #fff;
     color: #fff;
     position: fixed;
     top: 0;
@@ -383,4 +383,197 @@ footer {
 #products {
     padding-top: 120px;
     scroll-margin-top: 120px;
+}
+
+.product-layout {
+    display: flex;
+    min-height: 80vh;
+}
+
+
+/* Base layout */
+
+.product-container {
+    display: flex;
+    height: 100%;
+}
+
+
+/* Sidebar fixed on left */
+
+.product-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-sidebar li {
+    margin-bottom: 1rem;
+}
+
+.product-sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.product-sidebar a.active {
+    background: #0c94d3;
+    color: rgb(255, 255, 255);
+}
+
+
+/* Right side (iframe content) */
+
+.product-content iframe {
+    width: 100%;
+    min-height: 400px;
+    border: none;
+}
+
+
+/* 📱 Mobile responsive */
+
+@media (max-width: 768px) {
+    .product-sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1100;
+        width: 220px;
+        background: #fff;
+    }
+    .product-sidebar.show {
+        transform: translateX(0);
+    }
+    .sidebar-toggle {
+        display: inline-block;
+        background: #8fafeb;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+    }
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+
+/* Push product section below header */
+
+.product-section {
+    display: flex;
+    margin-top: 120px;
+    /* adjust this to your header height */
+}
+
+
+/* Sidebar */
+
+.product-sidebar {
+    width: 220px;
+    background: #f4f4f4;
+    padding: 1rem;
+    height: calc(100vh - 120px);
+    /* full height minus header */
+    position: fixed;
+    top: 120px;
+    /* exactly below header */
+    left: 0;
+    overflow-y: auto;
+}
+
+
+/* Content area */
+
+.product-content {
+    margin-left: 240px;
+    /* space for sidebar */
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+
+/* Product section below header */
+
+.product-section {
+    display: flex;
+    margin-top: 120px;
+    /* match your header height */
+}
+
+
+/* Sidebar (desktop view) */
+
+.product-sidebar {
+    width: 220px;
+    background: #f4f4f4;
+    padding: 1rem;
+    height: calc(100vh - 120px);
+    position: fixed;
+    top: 120px;
+    /* sits below header */
+    left: 0;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+/* Content area */
+
+.product-content {
+    margin-left: 240px;
+    /* leave space for sidebar */
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+
+/* --- Mobile styles --- */
+
+@media (max-width: 768px) {
+    .product-sidebar {
+        position: fixed;
+        top: 120px;
+        left: -240px;
+        /* hidden off-screen */
+        height: calc(100vh - 120px);
+        width: 220px;
+        background: #f4f4f4;
+        z-index: 999;
+    }
+    .product-sidebar.show {
+        left: 0;
+        /* slide in when active */
+    }
+    .product-content {
+        margin-left: 0;
+        /* full width when sidebar hidden */
+    }
+    .sidebar-toggle {
+        display: inline-block;
+        background: #424040;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        margin: 1rem;
+        cursor: pointer;
+        position: fixed;
+        top: 120px;
+        /* just below header */
+        left: 0.5px;
+        z-index: 1000;
+    }
 }
