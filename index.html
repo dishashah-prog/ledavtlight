@@ -304,20 +304,6 @@
         });
     </script>
     <script>
-        function loadProduct(file) {
-            fetch(file)
-                .then(response => {
-                    if (!response.ok) throw new Error("File not found: " + file);
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById('product-content').innerHTML = data;
-                })
-                .catch(err => {
-                    document.getElementById('product-content').innerHTML = "<p style='color:red;'>Error loading " + file + "</p>";
-                    console.error(err);
-                });
-        }
 
         // Sidebar click handling
         document.querySelectorAll('.product-sidebar a').forEach(link => {
