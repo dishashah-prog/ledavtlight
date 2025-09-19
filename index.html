@@ -20,7 +20,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style4.css" />
 </head>
 
 <body>
@@ -72,29 +72,30 @@
         <h2 style="text-align: center;">Explore our products</h2>
 
         <div class="grid">
-            <div class="card" data-aos="fade-up">
+            <div class="card product-link" data-file="floodlight.html">
                 <img src="images/floodled.jpg" height="180px" alt="Flood Light">
                 <h3>LED Flood Light</h3>
                 <p>Great for outdoor security lighting and entrances like garages, sheds, or yards.</p>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card product-link" data-file="highbay.html">
                 <img src="images/highbay.jpg" alt="Highbay Light">
                 <h3>LED Highbay Light</h3>
                 <p>Perfect for warehouses, factories, and gyms with high ceilings.</p>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card product-link" data-file="street.html">
                 <img src="images/street.jpg" alt="Street Lights">
                 <h3>LED Street Lights</h3>
                 <p>Improves visibility and safety on roads, pathways, and highways.</p>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card product-link" data-file="stadium.html">
                 <img src="images/stadium.jpg" height="180px" alt="Stadium Light">
                 <h3>LED Stadium Lights</h3>
                 <p>High-intensity lights for sports stadiums and outdoor arenas.</p>
             </div>
+
         </div>
 
         <div class="features-applications-section" data-aos="fade-up">
@@ -244,7 +245,7 @@
             }
         });
 
-        // Sidebar toggle
+        // Sidebar + product card logic
         document.addEventListener("DOMContentLoaded", function() {
             const links = document.querySelectorAll(".product-sidebar a");
             const frame = document.getElementById("product-frame");
@@ -252,6 +253,7 @@
             const toggleBtn = document.getElementById("sidebarToggle");
             const closeBtn = sidebar.querySelector(".sidebar-close");
 
+            // Sidebar toggle
             toggleBtn.addEventListener("click", () => {
                 sidebar.classList.add("show");
                 toggleBtn.style.display = "none";
@@ -262,6 +264,7 @@
                 toggleBtn.style.display = "inline-block";
             });
 
+            // Sidebar link click
             links.forEach(link => {
                 link.addEventListener("click", function(e) {
                     e.preventDefault();
@@ -273,7 +276,47 @@
                 });
             });
 
-            // Auto-resize iframe (works if same domain)
+            // Home product card click
+            const productLinks = document.querySelectorAll(".product-link");
+            const sidebarLinks = document.querySelectorAll(".product-sidebar a");
+
+            productLinks.forEach(card => {
+                card.addEventListener("click", () => {
+                    // Switch to Products tab
+                    switchTab("products");
+                    history.pushState(null, '', "#products");
+
+                    // Load correct file
+                    const file = card.getAttribute("data-file");
+                    frame.src = file;
+
+                    // Highlight sidebar
+                    sidebarLinks.forEach(link => {
+                        link.classList.toggle("active", link.getAttribute("data-file") === file);
+                    });
+
+                    // Close mobile menu if open
+                    document.getElementById("mobileMenu").classList.remove("show");
+
+                    // Scroll to top
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                });
+            });
+
+            // Ensure header and product sidebar don't clash
+            document.getElementById("sidebarToggle").addEventListener("click", () => {
+                document.getElementById("mobileMenu").classList.remove("show");
+            });
+
+            document.querySelector(".hamburger").addEventListener("click", () => {
+                document.getElementById("productSidebar").classList.remove("show");
+                document.getElementById("sidebarToggle").style.display = "inline-block";
+            });
+
+            // Auto-resize iframe (same domain only)
             frame.addEventListener("load", function() {
                 try {
                     const iframeDoc = frame.contentDocument || frame.contentWindow.document;
@@ -284,6 +327,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>
