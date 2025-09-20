@@ -512,13 +512,17 @@ footer {
 /* 📱 Mobile: sidebar becomes hidden by default */
 
 @media (max-width: 768px) {
-    .product-sidebar {
-        left: -260px;
-        /* hidden by default */
-        width: 220px;
-        top: 60px;
-        height: calc(100% - 60px);
+ .product-sidebar {
+    left: -260px;
+    /* hidden by default */
+    width: 220px;
+    top: 120px;
+    height: calc(100% - 120px);
+    overflow-y: auto;
+    transition: left 0.3s ease-in-out;
+    z-index: 900;
     }
+    
     .product-sidebar.show {
         left: 0;
         /* slide in */
